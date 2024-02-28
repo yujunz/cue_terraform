@@ -7,19 +7,19 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "7904dbecbaffd068651916dce77ff3437679f9d20e1a7956bff43826e7645fcc",
+    sha256 = "80a98277ad1311dacd837f9b16db62887702e9f1d1c4c9f796d0121a46c8e184",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.25.1/rules_go-v0.25.1.tar.gz",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.25.1/rules_go-v0.25.1.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.46.0/rules_go-v0.46.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.46.0/rules_go-v0.46.0.zip",
     ],
 )
 
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "222e49f034ca7a1d1231422cdb67066b885819885c356673cb1f72f748a3c9d4",
+    sha256 = "32938bda16e6700063035479063d9d24c60eda8d79fd4739563f50d331cb3209",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.3/bazel-gazelle-v0.22.3.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.3/bazel-gazelle-v0.22.3.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.35.0/bazel-gazelle-v0.35.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.35.0/bazel-gazelle-v0.35.0.tar.gz",
     ],
 )
 
@@ -27,7 +27,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.15.7")
+go_register_toolchains(version = "1.22.0")
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
@@ -38,10 +38,10 @@ gazelle_dependencies()
 #
 http_archive(
     name = "com_github_tnarg_rules_cue",
-    sha256 = "ee6eea3de252ebc8fb05c23e8d370e32c4783b36cd1c6ec9ea72411a086ac35e",
-    strip_prefix = "rules_cue-be98df2981025bf1389510797ea11e0e37aa761f",
+    integrity = "sha256-1iRPYtQQ0z1wqIINA822qgeR1NwF5LZESZyNv1x6n7E=",
+    strip_prefix = "rules_cue-ac110f1f51cfd6587c87daede9284e0d7a80d5fa",
     # Make sure to check for the latest version when you install
-    url = "https://github.com/tnarg/rules_cue/archive/be98df2981025bf1389510797ea11e0e37aa761f.zip",
+    url = "https://github.com/tnarg/rules_cue/archive/ac110f1f51cfd6587c87daede9284e0d7a80d5fa.zip",
 )
 
 load("@com_github_tnarg_rules_cue//:go.bzl", cue_go_modules = "go_modules")
