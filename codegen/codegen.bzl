@@ -53,6 +53,29 @@ _codegen_runner = rule(
     executable = True,
 )
 
+def codegen_providers(name = "providers"):
+    native.genrule(
+        name = name + "_main.tf",
+        srcs = [
+            "//codegen/cmd/terraform-providers",
+        ],
+        outs = ["main.tf"],
+        cmd = "$(location //codegen/cmd/terraform-providers) > $@",
+    )
+    native.genrule(
+        name = name + "_schema.json",
+        srcs = [
+            name + "_main.tf",
+            "//codegen:terraform",
+        ],
+        outs = ["schema.json"],
+        cmd = "export TF_PLUGIN_CACHE_DIR=/tmp; cp $(location " + name + "_main.tf) main.tf; $(location //codegen:terraform) init; $(location //codegen:terraform) providers schema -json > $@",
+    )
+
+    _codegen_runner(
+        name = name,
+        terraform_provider_schema = ":" + name + "_schema.json",
+    )
 
 def codegen(name, providers, **kwargs):
     # convert providers.txt into a terraform file
@@ -79,5 +102,5 @@ def codegen(name, providers, **kwargs):
 
     _codegen_runner(
         name = name,
-        terraform_provider_schema = ":" + name + "_schema.json"
+        terraform_provider_schema = ":" + name + "_schema.json",
     )

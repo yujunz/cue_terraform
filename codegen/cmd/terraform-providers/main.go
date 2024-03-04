@@ -10,7 +10,7 @@ import (
 
 const (
 	urlBase  = "https://registry.terraform.io"
-	urlStart = "/v1/providers?limit=100&tier=official,partner"
+	urlStart = "/v1/providers?limit=100&tier=official"
 )
 
 type response struct {
