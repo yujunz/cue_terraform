@@ -1,5 +1,5 @@
 load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
-load("//codegen:codegen.bzl", "codegen")
+load("//codegen:codegen.bzl", "codegen_providers")
 
 gazelle_binary(
     name = "gazelle_binary",
@@ -13,7 +13,4 @@ gazelle(
     gazelle = "//:gazelle_binary",
 )
 
-codegen(
-    name = "codegen",
-    providers = "//:providers.txt",
-)
+codegen_providers()

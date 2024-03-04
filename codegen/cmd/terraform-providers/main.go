@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 
 const (
 	urlBase  = "https://registry.terraform.io"
-	urlStart = "/v1/providers?limit=100&tier=official,partner"
+	urlStart = "/v1/providers?limit=100&tier="
 )
 
 type response struct {
@@ -42,12 +43,16 @@ type responseProvider struct {
 }
 
 func main() {
+	var tier string
+	flag.StringVar(&tier, "tier", "official", "Specify the tier to filter providers")
+	flag.Parse()
+
 	seen := make(map[string]struct{})
 
 	fmt.Println("terraform {")
 	fmt.Println("  required_providers {")
 
-	urlNext := urlBase + urlStart
+	urlNext := urlBase + urlStart + tier
 	for {
 		rsp, err := http.Get(urlNext)
 		if err != nil {
